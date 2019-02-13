@@ -1,0 +1,47 @@
+---
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  name: yk-auth
+  namespace: kube-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yk-auth
+  template:
+    metadata:
+      name: yk-auth
+      labels:
+        app: yk-auth
+      namespace: kube-dev
+    spec:
+      nodeSelector: 
+        node: app
+      containers:
+      - name: yk-auth
+        imagePullPolicy: Always
+        image: registry.cn-hangzhou.aliyuncs.com/yk-cloud/yk-auth:latest
+        ports:
+        - name: server-port
+          containerPort: 9004
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev
+      imagePullSecrets:
+      - name: dev-sec
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: yk-auth
+  name: yk-auth
+  namespace: kube-dev
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9004
+    targetPort: 9004
+  selector:
+    app: yk-auth

@@ -1,0 +1,47 @@
+---
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  name: yk-edge
+  namespace: kube-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yk-edge
+  template:
+    metadata:
+      name: yk-edge
+      labels:
+        app: yk-edge
+      namespace: kube-dev
+    spec:
+      nodeSelector: 
+        node: app
+      containers:
+      - name: yk-edge
+        imagePullPolicy: Always
+        image: registry.cn-hangzhou.aliyuncs.com/yk-cloud/yk-edge:latest
+        ports:
+        - name: server-port
+          containerPort: 9002
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev
+      imagePullSecrets:
+      - name: dev-sec
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: yk-edge
+  name: yk-edge
+  namespace: kube-dev
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9002
+    targetPort: 9002
+  selector:
+    app: yk-edge

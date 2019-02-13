@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1beta2
+metadata:
+  name: yk-demo-api
+  namespace: kube-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yk-demo-api
+  template:
+    metadata:
+      name: yk-demo-api
+      labels:
+        app: yk-demo-api
+      namespace: kube-dev
+    spec:
+      nodeSelector: 
+        node: app
+      containers:
+      - name: yk-demo-api
+        imagePullPolicy: Always
+        image: registry.cn-hangzhou.aliyuncs.com/yk-cloud/yk-demo-api:latest
+        ports:
+        - name: server-port
+          containerPort: 9201
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev
+      imagePullSecrets:
+      - name: dev-sec

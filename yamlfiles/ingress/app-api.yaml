@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-api
+  namespace: kube-dev
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: app-api.yk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: yk-edge
+          servicePort: 9002

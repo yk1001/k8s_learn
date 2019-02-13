@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-discovery
+  namespace: kube-dev
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: app-discovery.yk.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: yk-discovery
+          servicePort: 9001
