@@ -1,11 +1,12 @@
 1,将yamlfiles文件夹负责到本地
 ---
-2,创建secret对象 system-sec 两种方式创建
+2,创建secret对象 system-sec 
 ---
-   1，kubectl create secret docker-registry system-sec --docker-server=registry.cn-hangzhou.aliyuncs.com --docker-username=yukang0001 --docker-password=1qaz@WSX --namespace=kube-system
-   1,kaf yamlfiles/kube-system/00dockerhub-secret.yaml
-   #00dockerhub-secret.yaml 中dockerconfigjson 的生成
-   #echo {"auths":{"registry.cn-hangzhou.aliyuncs.com":{"username":"yukang0001","password":"1qaz@WSX","auth":"eXVrYW5nMDAwMToxcWF6QFdTWA=="}}} | base64
+    #两种方式创建 
+    1，kubectl create secret docker-registry system-sec --docker-server=registry.cn-hangzhou.aliyuncs.com --docker-username=yukang0001 --docker-password=1qaz@WSX --namespace=kube-system
+    1,kaf yamlfiles/kube-system/00dockerhub-secret.yaml
+    #00dockerhub-secret.yaml 中dockerconfigjson 的生成
+    #echo {"auths":{"registry.cn-hangzhou.aliyuncs.com":{"username":"yukang0001","password":"1qaz@WSX","auth":"eXVrYW5nMDAwMToxcWF6QFdTWA=="}}} | base64
 3,部署flannel
 ---
     kaf yamlfiles/kube-system/base00flannel.yaml
