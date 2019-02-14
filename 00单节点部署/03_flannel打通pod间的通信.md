@@ -9,7 +9,7 @@
     #echo {"auths":{"registry.cn-hangzhou.aliyuncs.com":{"username":"yukang0001","password":"1qaz@WSX","auth":"eXVrYW5nMDAwMToxcWF6QFdTWA=="}}} | base64
 3,部署flannel
 ---
-    kaf yamlfiles/kube-system/base00flannel.yaml
+    kaf yamlfiles/kube-system/base/00flannel.yaml
 4,验证
 ---
     ifconfig
