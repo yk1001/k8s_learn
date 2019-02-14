@@ -30,3 +30,16 @@
 5，安装校验
 ---
     docker version
+6,配置docker阿里云镜像加速
+---
+    sudo mkdir -p /etc/docker
+    sudo tee /etc/docker/daemon.json <<-'EOF'
+    {
+      "registry-mirrors": ["https://5qdb3g8y.mirror.aliyuncs.com"]
+    }
+    EOF
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
+7，docker login
+---
+    sudo docker login --username=yukang0001 registry.cn-hangzhou.aliyuncs.com
