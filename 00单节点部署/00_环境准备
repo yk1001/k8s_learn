@@ -1,8 +1,10 @@
 0,创建虚拟机（在虚拟机中的操作统一使用root用户）
+---
     使用vmware软件创建虚拟机，master1
     操作系统选择  CentOS-7，4core 8G 100G
     选NAT网络模式，配置网关ip 192.168.100.2
 1,配置子网掩码与网关ip与DNS服务器
+---
  修改 /etc/sysconfig/network-scripts/ifcfg-ens33 
  配置如下：
     PROXY_METHOD=none
@@ -28,6 +30,7 @@
     systemctl restart network
     ping www.baidu.com
 2,修改yum源为国内源
+---
 备份
     cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo_bak
 下载
@@ -36,5 +39,6 @@
     yum makecache
     yum -y update
 3,yum 安装 net_tools
+---
     yum search ifconfig
     yum install net_tools.x86_64 #然后根据提示安装net_tools.x86_64
