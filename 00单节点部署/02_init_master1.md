@@ -9,7 +9,7 @@
 ---
     swapoff -a && sysctl -w vm.swappiness=0
     vi /etc/fstab
-    #UUID=7bff6243-324c-4587-b550-55dc34018ebf swap                    swap    defaults        0 0
+    #UUID=7bff6243-324c-4587-b550-55dc34018ebf swap  swap    defaults        0 0
 
 3，开启linux内核网桥转发
 ---
@@ -42,7 +42,7 @@
 ---
 7，准备所需镜像（提前找好所需镜像，可以借助阿里云的镜像管理构建）
 ---
-     所需镜像列表如下：
+    #所需镜像列表如下：
     k8s.gcr.io/kube-proxy:v1.13.0
     k8s.gcr.io/kube-apiserver:v1.13.0
     k8s.gcr.io/kube-scheduler:v1.13.0
@@ -59,6 +59,22 @@
 10，验证
 ---
     kubectl get all --all-namespaces=true
-    这时除coreDNS pod启动失败，其余pod启动正常
-
+    #这时除coreDNS pod启动失败，其余pod启动正常
+11,验证完成后，配置一些alias方便使用kubectl
+---
+    vi /etc/profile
+    #在文件末尾加上
+    alias kga='kubectl get all --all-namespaces=true'
+    alias kcf='kubectl create -f '
+    alias kdf='kubectl delete -f '
+    alias klf='kubectl logs -f '
+    alias kdp='kubectl delete pod '
+    alias kaf='kubectl apply -f '
+    alias kgp='kubectl get pod --all-namespaces=true'
+    
+    source /etc/profile
+12,master1 打tag
+---
+   kubectl label nodes master1 node=kube-system
+   #这使得之后创建的关于kube-system namespace下的pod，会被调度到master1上
 
