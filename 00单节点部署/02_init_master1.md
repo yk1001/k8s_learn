@@ -51,6 +51,7 @@
     k8s.gcr.io/etcd:3.2.24
     k8s.gcr.io/pause:3.1
 8，kubeadm init 初始话master1
+---
     kubeadm init --kubernetes-version=v1.13.0 --pod-network-cidr=10.244.0.0/16
 9，配置 kubectl 的权限
 ---
